@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Appointments</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body {
+            background: linear-gradient(135deg, rgba(244, 247, 252, 0.8), rgba(224, 231, 255, 0.8)), 
+                        url("https://images.unsplash.com/photo-1585435557343-3b0929e91f93?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 { font-size: 2.5rem; color: #3400ff; text-align: center; margin-bottom: 20px; }
+        h1 span { color: #5721fb; }
+        .appointment-form { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .appointment-form input, .appointment-form button {
+            padding: 10px; font-size: 1rem; border: 1px solid #ccc; border-radius: 5px;
+        }
+        .appointment-form input[type="text"] { flex: 1; min-width: 200px; }
+        .appointment-form input[type="datetime-local"] { min-width: 200px; }
+        .appointment-form button { background: #3400ff; color: white; border: none; cursor: pointer; transition: background 0.3s ease; }
+        .appointment-form button:hover { background: #5721fb; }
+        .appointment-list { list-style: none; }
+        .appointment-item {
+            display: flex; justify-content: space-between; align-items: center; padding: 15px;
+            background: white; margin-bottom: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        .appointment-item:hover { transform: translateY(-2px); }
+        .appointment-details { flex: 1; }
+        .appointment-details strong { color: #3400ff; }
+        .appointment-details span { display: block; color: #666; font-size: 0.9rem; }
+        .appointment-actions button { padding: 5px 10px; margin-left: 5px; border: none; border-radius: 5px; cursor: pointer; transition: background 0.3s ease; }
+        .appointment-actions .edit-btn { background: #f39c12; color: white; }
+        .appointment-actions .edit-btn:hover { background: #e67e22; }
+        .appointment-actions .delete-btn { background: #e74c3c; color: white; }
+        .appointment-actions .delete-btn:hover { background: #c0392b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Doctor <span>Appointments</span></h1>
+        <div class="appointment-form">
+            <input type="text" id="studentName" placeholder="Student Name" required>
+            <input type="datetime-local" id="appointmentTime" required>
+            <button onclick="addAppointment()">Schedule</button>
+        </div>
+        <ul class="appointment-list" id="appointmentList"></ul>
+    </div>
+
+    <script>
+        let appointments = [
+            { id: 1, name: "John Doe", time: "2025-03-20T10:00" },
+            { id: 2, name: "Jane Smith", time: "2025-03-21T14:30" }
+        ];
+
+        function renderAppointments() {
+            const appointmentList = document.getElementById("appointmentList");
+            appointmentList.innerHTML = "";
+            appointments.sort((a, b) => new Date(a.time) - new Date(b.time));
+            appointments.forEach(appointment => {
+                const li = document.createElement("li");
+                li.className = "appointment-item";
+                li.innerHTML = `
+                    <div class="appointment-details">
+                        <strong>${appointment.name}</strong>
+                        <span>${new Date(appointment.time).toLocaleString("en-US", { dateStyle: "long", timeStyle: "short" })}</span>
+                    </div>
+                    <div class="appointment-actions">
+                        <button class="edit-btn" onclick="editAppointment(${appointment.id})">Edit</button>
+                        <button class="delete-btn" onclick="deleteAppointment(${appointment.id})">Delete</button>
+                    </div>
+                `;
+                appointmentList.appendChild(li);
+            });
+        }
+
+        function addAppointment() {
+            const name = document.getElementById("studentName").value;
+            const time = document.getElementById("appointmentTime").value;
+            if (name && time) {
+                const newAppointment = { id: appointments.length ? Math.max(...appointments.map(a => a.id)) + 1 : 1, name, time };
+                appointments.push(newAppointment);
+                renderAppointments();
+                document.getElementById("studentName").value = "";
+                document.getElementById("appointmentTime").value = "";
+            } else {
+                alert("Please fill in all fields!");
+            }
+        }
+
+        function editAppointment(id) {
+            const appointment = appointments.find(a => a.id === id);
+            const newName = prompt("Edit student name:", appointment.name);
+            const newTime = prompt("Edit time (YYYY-MM-DDTHH:MM):", appointment.time);
+            if (newName && newTime) {
+                appointment.name = newName;
+                appointment.time = newTime;
+                renderAppointments();
+            }
+        }
+
+        function deleteAppointment(id) {
+            if (confirm("Are you sure you want to delete this appointment?")) {
+                appointments = appointments.filter(a => a.id !== id);
+                renderAppointments();
+            }
+        }
+
+        renderAppointments();
+    </script>
+</body>
+</html>

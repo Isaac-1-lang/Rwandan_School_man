@@ -1,0 +1,147 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "poppins";
+}
+body {
+  max-height: 100vh;
+  max-width: 50vw;
+  background: lightgray;
+}
+
+li {
+  list-style: none;
+}
+.side-menu {
+  left: -300px;
+  position: fixed;
+  background: #0059b3;
+  width: 20vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.5s ease;
+  top: 0;
+  /* left: 0;
+        height: 100%; 
+        width: 250px;
+        background-color: #blue; 
+        margin: 0;
+        padding: 0;  */
+}
+.side-menu h1 {
+  text-align: center;
+  color: #98ff98;
+  margin-bottom: 40px;
+}
+.side-menu li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.3em;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+.side-menu li a:hover {
+  color: wheat;
+  background-color: #3787d6;
+  transition: 0.5s;
+  cursor: pointer;
+}
+#check {
+  display: none;
+}
+label #btn,
+label #cancel {
+  position: absolute;
+  height: 5vh;
+  color: white;
+  padding: 3px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+label #btn {
+  left: 50px;
+  background-color: #0059b3;
+  top: 25px;
+  font-size: 35px;
+  color: white;
+}
+label #cancel {
+  z-index: 1111;
+  left: -230px;
+  top: 40px;
+}
+#check:checked ~ .side-menu {
+  left: 0;
+}
+#check:checked ~ label #cancel {
+  left: 230px;
+}
+.header {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  height: 10vh;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 10vh;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+.user {
+  margin-top: 10px;
+  margin-left: 1100px;
+}
+.nav img {
+  height: 5vh;
+  padding-left: 30px;
+  margin-left: 15px;
+}
+
+.card-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  gap: 200px;
+  margin-top: 200px;
+  margin-left: 300px;
+  flex-wrap: nowrap;
+  text-align: left;
+}
+.card-container .card {
+  display: block;
+  background-color: #f4f4f4;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  width: 250px;
+  height: 250px;
+  transition: transform 0.6s ease;
+}
+.card-container .card-content {
+  padding: 20px;
+}
+.card-container .card img {
+  padding: 10px;
+  /* background-color: #0059b3; */
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+.card-container .card-content a {
+  color: #0059b3;
+  text-decoration: none;
+  transition: all 0.5s ease;
+}
+.card-container .card-content a:hover {
+  color: #3787d6;
+  text-decoration: underline;
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rwandan Nine Important Courses</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, rgba(244, 247, 252, 0.8), rgba(224, 231, 255, 0.8)), 
+                        url("https://images.unsplash.com/photo-1585435557343-3b0929e91f93?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #3400ff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 span {
+            color: #5721fb;
+        }
+
+        .course-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .course-item {
+            padding: 15px;
+            background: white;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .course-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .course-item strong {
+            color: #3400ff;
+            font-size: 1.2rem;
+        }
+
+        .course-item p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .back-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background: #3400ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #5721fb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rwandan Nine <span>Important Courses</span></h1>
+        <ul class="course-list" id="courseList">
+            <li class="course-item">
+                <strong>Mathematics</strong>
+                <p>Core subject focusing on numerical and logical skills, essential for problem-solving.</p>
+            </li>
+            <li class="course-item">
+                <strong>English</strong>
+                <p>Language of instruction and communication, vital for global interaction.</p>
+            </li>
+            <li class="course-item">
+                <strong>Kinyarwanda</strong>
+                <p>National language, fostering cultural identity and local communication.</p>
+            </li>
+            <li class="course-item">
+                <strong>Physics</strong>
+                <p>Science of matter and energy, key for understanding physical phenomena.</p>
+            </li>
+            <li class="course-item">
+                <strong>Chemistry</strong>
+                <p>Study of substances and reactions, critical for health and science fields.</p>
+            </li>
+            <li class="course-item">
+                <strong>Biology</strong>
+                <p>Life sciences, directly relevant to health and medical understanding.</p>
+            </li>
+            <li class="course-item">
+                <strong>History</strong>
+                <p>Exploration of past events, shaping national and personal identity.</p>
+            </li>
+            <li class="course-item">
+                <strong>Geography</strong>
+                <p>Study of environments and societies, impacting health and resources.</p>
+            </li>
+            <li class="course-item">
+                <strong>Entrepreneurship</strong>
+                <p>Skills for innovation and economic growth, encouraging self-reliance.</p>
+            </li>
+        </ul>
+        <a href="doctor-dashboard.html" class="back-btn">Back to Dashboard</a>
+    </div>
+</body>
+</html>

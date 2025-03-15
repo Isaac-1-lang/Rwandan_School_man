@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Events Calendar 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, rgba(244, 247, 252, 0.8), rgba(224, 231, 255, 0.8)), 
+                        url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #3400ff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 span {
+            color: #5721fb;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .event-form input, .event-form button {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .event-form input[type="text"] {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .event-form input[type="date"] {
+            min-width: 150px;
+        }
+
+        .event-form button {
+            background: #3400ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .event-form button:hover {
+            background: #5721fb;
+        }
+
+        .event-list {
+            list-style: none;
+        }
+
+        .event-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .event-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .event-details {
+            flex: 1;
+        }
+
+        .event-details span {
+            display: block;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .event-actions button {
+            padding: 5px 10px;
+            margin-left: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .event-actions .edit-btn {
+            background: #f39c12;
+            color: white;
+        }
+
+        .event-actions .edit-btn:hover {
+            background: #e67e22;
+        }
+
+        .event-actions .delete-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .event-actions .delete-btn:hover {
+            background: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>School Events <span>2025</span></h1>
+
+        <!-- Event Form for Adding Events -->
+        <div class="event-form">
+            <input type="text" id="eventName" placeholder="Event Name" required>
+            <input type="date" id="eventDate" required>
+            <button onclick="addEvent()">Add Event</button>
+        </div>
+
+        <!-- Event List -->
+        <ul class="event-list" id="eventList"></ul>
+    </div>
+
+    <script>
+        // Sample events for 2025 (you can modify these)
+        let events = [
+            { id: 1, name: "New Year Orientation", date: "2025-01-10" },
+            { id: 2, name: "Science Fair", date: "2025-03-15" },
+            { id: 3, name: "Spring Sports Day", date: "2025-04-20" },
+            { id: 4, name: "Midterm Exams Begin", date: "2025-06-05" },
+            { id: 5, name: "Summer Break Starts", date: "2025-07-01" },
+            { id: 6, name: "Back-to-School Night", date: "2025-08-25" },
+            { id: 7, name: "Fall Festival", date: "2025-10-15" },
+            { id: 8, name: "Winter Concert", date: "2025-12-10" }
+        ];
+
+        // Function to render events
+        function renderEvents() {
+            const eventList = document.getElementById("eventList");
+            eventList.innerHTML = "";
+            events.sort((a, b) => new Date(a.date) - new Date(b.date)); // Sort by date
+            events.forEach(event => {
+                const li = document.createElement("li");
+                li.className = "event-item";
+                li.innerHTML = `
+                    <div class="event-details">
+                        <strong>${event.name}</strong>
+                        <span>${new Date(event.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
+                    </div>
+                    <div class="event-actions">
+                        <button class="edit-btn" onclick="editEvent(${event.id})">Edit</button>
+                        <button class="delete-btn" onclick="deleteEvent(${event.id})">Delete</button>
+                    </div>
+                `;
+                eventList.appendChild(li);
+            });
+        }
+
+        // Add new event
+        function addEvent() {
+            const name = document.getElementById("eventName").value;
+            const date = document.getElementById("eventDate").value;
+            if (name && date) {
+                const newEvent = {
+                    id: events.length ? Math.max(...events.map(e => e.id)) + 1 : 1,
+                    name,
+                    date
+                };
+                events.push(newEvent);
+                renderEvents();
+                document.getElementById("eventName").value = "";
+                document.getElementById("eventDate").value = "";
+            } else {
+                alert("Please fill in both fields!");
+            }
+        }
+
+        // Edit event
+        function editEvent(id) {
+            const event = events.find(e => e.id === id);
+            const newName = prompt("Edit event name:", event.name);
+            const newDate = prompt("Edit event date (YYYY-MM-DD):", event.date);
+            if (newName && newDate) {
+                event.name = newName;
+                event.date = newDate;
+                renderEvents();
+            }
+        }
+
+        // Delete event
+        function deleteEvent(id) {
+            if (confirm("Are you sure you want to delete this event?")) {
+                events = events.filter(e => e.id !== id);
+                renderEvents();
+            }
+        }
+
+        // Initial render
+        renderEvents();
+    </script>
+</body>
+</html>

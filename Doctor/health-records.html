@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Records</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body {
+            background: linear-gradient(135deg, rgba(244, 247, 252, 0.8), rgba(224, 231, 255, 0.8)), 
+                        url("https://images.unsplash.com/photo-1585435557343-3b0929e91f93?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 { font-size: 2.5rem; color: #3400ff; text-align: center; margin-bottom: 20px; }
+        h1 span { color: #5721fb; }
+        .record-form { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .record-form input, .record-form textarea, .record-form button {
+            padding: 10px; font-size: 1rem; border: 1px solid #ccc; border-radius: 5px;
+        }
+        .record-form input[type="text"] { flex: 1; min-width: 200px; }
+        .record-form input[type="date"] { min-width: 150px; }
+        .record-form textarea { width: 100%; min-height: 100px; resize: vertical; }
+        .record-form button { background: #3400ff; color: white; border: none; cursor: pointer; transition: background 0.3s ease; }
+        .record-form button:hover { background: #5721fb; }
+        .record-list { list-style: none; }
+        .record-item {
+            padding: 15px; background: white; margin-bottom: 10px; border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); transition: transform 0.3s ease;
+        }
+        .record-item:hover { transform: translateY(-2px); }
+        .record-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .record-header strong { color: #3400ff; font-size: 1.2rem; }
+        .record-header span { color: #666; font-size: 0.9rem; }
+        .record-content { color: #333; margin-bottom: 10px; }
+        .record-actions button { padding: 5px 10px; margin-left: 5px; border: none; border-radius: 5px; cursor: pointer; transition: background 0.3s ease; }
+        .record-actions .edit-btn { background: #f39c12; color: white; }
+        .record-actions .edit-btn:hover { background: #e67e22; }
+        .record-actions .delete-btn { background: #e74c3c; color: white; }
+        .record-actions .delete-btn:hover { background: #c0392b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Health <span>Records</span></h1>
+        <div class="record-form">
+            <input type="text" id="studentName" placeholder="Student Name" required>
+            <input type="date" id="recordDate" required>
+            <textarea id="recordDetails" placeholder="Health Details" required></textarea>
+            <button onclick="addRecord()">Add Record</button>
+        </div>
+        <ul class="record-list" id="recordList"></ul>
+    </div>
+
+    <script>
+        let records = [
+            { id: 1, name: "John Doe", date: "2025-03-10", details: "Annual checkup: Healthy, no issues." },
+            { id: 2, name: "Jane Smith", date: "2025-03-12", details: "Mild flu, prescribed rest." }
+        ];
+
+        function renderRecords() {
+            const recordList = document.getElementById("recordList");
+            recordList.innerHTML = "";
+            records.sort((a, b) => new Date(b.date) - new Date(a.date));
+            records.forEach(record => {
+                const li = document.createElement("li");
+                li.className = "record-item";
+                li.innerHTML = `
+                    <div class="record-header">
+                        <strong>${record.name}</strong>
+                        <span>${new Date(record.date).toLocaleDateString("en-US")}</span>
+                    </div>
+                    <div class="record-content">${record.details}</div>
+                    <div class="record-actions">
+                        <button class="edit-btn" onclick="editRecord(${record.id})">Edit</button>
+                        <button class="delete-btn" onclick="deleteRecord(${record.id})">Delete</button>
+                    </div>
+                `;
+                recordList.appendChild(li);
+            });
+        }
+
+        function addRecord() {
+            const name = document.getElementById("studentName").value;
+            const date = document.getElementById("recordDate").value;
+            const details = document.getElementById("recordDetails").value;
+            if (name && date && details) {
+                const newRecord = { id: records.length ? Math.max(...records.map(r => r.id)) + 1 : 1, name, date, details };
+                records.push(newRecord);
+                renderRecords();
+                document.getElementById("studentName").value = "";
+                document.getElementById("recordDate").value = "";
+                document.getElementById("recordDetails").value = "";
+            } else {
+                alert("Please fill in all fields!");
+            }
+        }
+
+        function editRecord(id) {
+            const record = records.find(r => r.id === id);
+            const newName = prompt("Edit student name:", record.name);
+            const newDate = prompt("Edit date (YYYY-MM-DD):", record.date);
+            const newDetails = prompt("Edit details:", record.details);
+            if (newName && newDate && newDetails) {
+                record.name = newName;
+                record.date = newDate;
+                record.details = newDetails;
+                renderRecords();
+            }
+        }
+
+        function deleteRecord(id) {
+            if (confirm("Are you sure you want to delete this record?")) {
+                records = records.filter(r => r.id !== id);
+                renderRecords();
+            }
+        }
+
+        renderRecords();
+    </script>
+</body>
+</html>

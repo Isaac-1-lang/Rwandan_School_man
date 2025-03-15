@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Information</title>
+  <link rel="stylesheet" href="student.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Student Information</h1>
+    
+    <!-- Class Dropdown -->
+    <div class="class-dropdown">
+      <label for="classSelect">Select Class:</label>
+      <select id="classSelect" onchange="filterClass()">
+        <option value="all">All Classes</option>
+        <option value="Class 1">S1</option>
+        <option value="Class 2">S2</option>
+        <option value="Class 3">S3</option>
+        <option value="Class 3">S4</option>
+        <option value="Class 3">S5</option>
+        <option value="Class 3">S6</option>
+        
+      </select>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" id="searchInput" onkeyup="searchStudents()" placeholder="Search for a student...">
+        <img src="search2.png">
+        
+       
+      </div>
+  
+
+
+    <!-- Student Table -->
+    <table id="studentTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Class</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Student rows will go here -->
+        <tr data-class="Class 1">
+          <td>John Ihimbazwe</td>
+          <td>S1</td>
+          
+        </tr>
+        <tr data-class="Class 2">
+          <td>Jane Teta</td>
+          <td>S2</td>
+          
+        </tr>
+        <tr data-class="Class 1">
+          <td>Mark Muhire</td>
+          <td> S3</td>
+          
+        </tr>
+        <tr data-class="Class 3">
+          <td>Emily Shimwa</td>
+          <td>S4</td>
+          
+        </tr>
+        <tr data-class="Class 2">
+          <td>Chris Nshuti</td>
+          <td>S5</td>
+          
+        </tr>
+      </tbody>
+      <tr>
+        <td>Fany Iradukunda</td>
+        <td>S6</td>
+      </tr>
+    </table>
+  </div>
+  
+
+  <script src="student.js"></script>
+</body>
+</html>

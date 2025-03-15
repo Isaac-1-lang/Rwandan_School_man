@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, rgba(244, 247, 252, 0.8), rgba(224, 231, 255, 0.8)), 
+                        url("https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #3400ff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 span {
+            color: #5721fb;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .announcement-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .announcement-form input, 
+        .announcement-form textarea, 
+        .announcement-form button {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .announcement-form input[type="text"] {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .announcement-form textarea {
+            width: 100%;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .announcement-form button {
+            background: #3400ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .announcement-form button:hover {
+            background: #5721fb;
+        }
+
+        .announcement-list {
+            list-style: none;
+        }
+
+        .announcement-item {
+            padding: 15px;
+            background: white;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .announcement-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .announcement-header strong {
+            color: #3400ff;
+            font-size: 1.2rem;
+        }
+
+        .announcement-header span {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .announcement-content {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .announcement-actions button {
+            padding: 5px 10px;
+            margin-left: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .announcement-actions .edit-btn {
+            background: #f39c12;
+            color: white;
+        }
+
+        .announcement-actions .edit-btn:hover {
+            background: #e67e22;
+        }
+
+        .announcement-actions .delete-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .announcement-actions .delete-btn:hover {
+            background: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Announcements</h1>
+
+        <!-- Announcement Form for Adding Announcements -->
+        <div class="announcement-form">
+            <input type="text" id="announcementTitle" placeholder="Announcement Title" required>
+            <textarea id="announcementContent" placeholder="Write your announcement here..." required></textarea>
+            <button onclick="addAnnouncement()">Post Announcement</button>
+        </div>
+
+        <!-- Announcement List -->
+        <ul class="announcement-list" id="announcementList"></ul>
+    </div>
+
+    <script>
+        // Sample student announcements (you can modify these)
+        let announcements = [
+            { 
+                id: 1, 
+                title: "Math Club Meeting", 
+                content: "Join us this Friday at 3 PM in Room 12 for our weekly Math Club meeting. We'll be solving fun puzzles!", 
+                date: new Date("2025-03-17").toISOString() 
+            },
+            { 
+                id: 2, 
+                title: "Bake Sale Fundraiser", 
+                content: "Support the Art Club by buying treats this Wednesday in the cafeteria. All proceeds go to new supplies!", 
+                date: new Date("2025-03-19").toISOString() 
+            },
+            { 
+                id: 3, 
+                title: "Lost & Found Reminder", 
+                content: "Check the Lost & Found by the gym before Friday—unclaimed items will be donated!", 
+                date: new Date("2025-03-20").toISOString() 
+            },
+            { 
+                id: 4, 
+                title: "Soccer Tryouts", 
+                content: "Tryouts for the school soccer team are next Monday after school. Bring your gear and energy!", 
+                date: new Date("2025-03-24").toISOString() 
+            }
+        ];
+
+        // Function to render announcements
+        function renderAnnouncements() {
+            const announcementList = document.getElementById("announcementList");
+            announcementList.innerHTML = "";
+            announcements.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by date (newest first)
+            announcements.forEach(announcement => {
+                const li = document.createElement("li");
+                li.className = "announcement-item";
+                li.innerHTML = `
+                    <div class="announcement-header">
+                        <strong>${announcement.title}</strong>
+                        <span>${new Date(announcement.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
+                    </div>
+                    <div class="announcement-content">${announcement.content}</div>
+                    <div class="announcement-actions">
+                        <button class="edit-btn" onclick="editAnnouncement(${announcement.id})">Edit</button>
+                        <button class="delete-btn" onclick="deleteAnnouncement(${announcement.id})">Delete</button>
+                    </div>
+                `;
+                announcementList.appendChild(li);
+            });
+        }
+
+        // Add new announcement
+        function addAnnouncement() {
+            const title = document.getElementById("announcementTitle").value;
+            const content = document.getElementById("announcementContent").value;
+            if (title && content) {
+                const newAnnouncement = {
+                    id: announcements.length ? Math.max(...announcements.map(a => a.id)) + 1 : 1,
+                    title,
+                    content,
+                    date: new Date().toISOString()
+                };
+                announcements.push(newAnnouncement);
+                renderAnnouncements();
+                document.getElementById("announcementTitle").value = "";
+                document.getElementById("announcementContent").value = "";
+            } else {
+                alert("Please fill in both fields!");
+            }
+        }
+
+        // Edit announcement
+        function editAnnouncement(id) {
+            const announcement = announcements.find(a => a.id === id);
+            const newTitle = prompt("Edit announcement title:", announcement.title);
+            const newContent = prompt("Edit announcement content:", announcement.content);
+            if (newTitle && newContent) {
+                announcement.title = newTitle;
+                announcement.content = newContent;
+                renderAnnouncements();
+            }
+        }
+
+        // Delete announcement
+        function deleteAnnouncement(id) {
+            if (confirm("Are you sure you want to delete this announcement?")) {
+                announcements = announcements.filter(a => a.id !== id);
+                renderAnnouncements();
+            }
+        }
+
+        // Initial render
+        renderAnnouncements();
+    </script>
+</body>
+</html>

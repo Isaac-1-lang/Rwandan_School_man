@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeachBoard - Teacher Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>TeachBoard</h2>
+                <button id="toggle-sidebar" class="toggle-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                <ul>
+                    <li class="active" data-tab="dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </li>
+                    <li data-tab="students">
+                        <i class="fas fa-users"></i>
+                        <span>Students</span>
+                    </li>
+                    <li data-tab="exercises">
+                        <i class="fas fa-book"></i>
+                        <span>Exercises</span>
+                    </li>
+                    <li data-tab="notes">
+                        <i class="fas fa-sticky-note"></i>
+                        <span>Notes</span>
+                    </li>
+                    <li data-tab="assessments">
+                        <i class="fas fa-tasks"></i>
+                        <span>Assessments</span>
+                    </li>
+                    <li data-tab="marks">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Marks</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <img src="https://api.placeholder.com/40/320" alt="User Profile">
+                    <div class="user-details">
+                        <h4>Ms. Johnson</h4>
+                        <p>Computer Science</p>
+                    </div>
+                </div>
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navigation -->
+            <div class="top-nav">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="top-nav-right">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="profile-btn">
+                        <img src="https://api.placeholder.com/40/320" alt="Profile">
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="content-section active" id="dashboard-content">
+                <h1>Dashboard</h1>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon student-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Total Students</h3>
+                            <p>42</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon exercise-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Active Exercises</h3>
+                            <p>8</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon assessment-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Pending Assessments</h3>
+                            <p>3</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon performance-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Average Performance</h3>
+                            <p>B+</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-activities">
+                    <div class="section-header">
+                        <h2>Recent Activities</h2>
+                        <button class="view-all-btn">View All</button>
+                    </div>
+                    <div class="activities-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h4>Array Operations Exercise Posted</h4>
+                                <p>You added a new exercise for the CS101 class</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h4>Marks Updated</h4>
+                                <p>You updated marks for 15 students in CS102</p>
+                                <span class="activity-time">Yesterday</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h4>New Comment</h4>
+                                <p>David Lee commented on his assignment</p>
+                                <span class="activity-time">2 days ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="upcoming-deadlines">
+                    <div class="section-header">
+                        <h2>Upcoming Deadlines</h2>
+                        <button class="view-all-btn">View All</button>
+                    </div>
+                    <div class="deadlines-list">
+                        <div class="deadline-item">
+                            <div class="deadline-date">
+                                <span class="day">20</span>
+                                <span class="month">Mar</span>
+                            </div>
+                            <div class="deadline-details">
+                                <h4>Array Operations Exercise</h4>
+                                <p>Due for CS101 class</p>
+                            </div>
+                            <div class="deadline-status">
+                                <span class="status-badge exercise">Exercise</span>
+                            </div>
+                        </div>
+                        <div class="deadline-item">
+                            <div class="deadline-date">
+                                <span class="day">25</span>
+                                <span class="month">Mar</span>
+                            </div>
+                            <div class="deadline-details">
+                                <h4>Midterm Assessment</h4>
+                                <p>For all CS classes</p>
+                            </div>
+                            <div class="deadline-status">
+                                <span class="status-badge assessment">Assessment</span>
+                            </div>
+                        </div>
+                        <div class="deadline-item">
+                            <div class="deadline-date">
+                                <span class="day">28</span>
+                                <span class="month">Mar</span>
+                            </div>
+                            <div class="deadline-details">
+                                <h4>Data Structures Project</h4>
+                                <p>Due for CS202 class</p>
+                            </div>
+                            <div class="deadline-status">
+                                <span class="status-badge project">Project</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Students Content -->
+            <div class="content-section" id="students-content">
+                <div class="section-header">
+                    <h1>Students</h1>
+                    <button class="add-btn" id="add-student-btn">
+                        <i class="fas fa-plus"></i> Add Student
+                    </button>
+                </div>
+                
+                <div class="filter-row">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search students...">
+                    </div>
+                    <div class="filter-select">
+                        <select id="class-filter">
+                            <option value="">All Classes</option>
+                            <option value="CS101">CS101</option>
+                            <option value="CS102">CS102</option>
+                            <option value="CS202">CS202</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="students-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Class</th>
+                                <th>Overall Grade</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="students-table-body">
+                            <!-- Students will be loaded here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Student Form Modal -->
+                <div class="modal" id="student-modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 id="student-modal-title">Add New Student</h2>
+                            <span class="close-modal">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <form id="student-form">
+                                <div class="form-group">
+                                    <label for="student-name">Full Name</label>
+                                    <input type="text" id="student-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="student-email">Email</label>
+                                    <input type="email" id="student-email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="student-class">Class</label>
+                                    <select id="student-class" required>
+                                        <option value="CS101">CS101</option>
+                                        <option value="CS102">CS102</option>
+                                        <option value="CS202">CS202</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="student-grade">Current Grade</label>
+                                    <input type="text" id="student-grade">
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="cancel-btn">Cancel</button>
+                                    <button type="submit" class="save-btn">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercises Content -->
+            <div class="content-section" id="exercises-content">
+                <div class="section-header">
+                    <h1>Exercises</h1>
+                    <button class="add-btn" id="add-exercise-btn">
+                        <i class="fas fa-plus"></i> Add Exercise
+                    </button>
+                </div>
+                
+                <div class="filter-row">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search exercises...">
+                    </div>
+                    <div class="filter-select">
+                        <select id="exercise-status-filter">
+                            <option value="">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="upcoming">Upcoming</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="exercises-grid" id="exercises-grid">
+                    <!-- Exercises will be loaded here by JavaScript -->
+                </div>
+
+                <!-- Exercise Form Modal -->
+                <div class="modal" id="exercise-modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 id="exercise-modal-title">Add New Exercise</h2>
+                            <span class="close-modal">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <form id="exercise-form">
+                                <div class="form-group">
+                                    <label for="exercise-title">Title</label>
+                                    <input type="text" id="exercise-title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exercise-class">Class</label>
+                                    <select id="exercise-class" required>
+                                        <option value="CS101">CS101</option>
+                                        <option value="CS102">CS102</option>
+                                        <option value="CS202">CS202</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exercise-due-date">Due Date</label>
+                                    <input type="date" id="exercise-due-date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exercise-description">Description</label>
+                                    <textarea id="exercise-description" rows="5" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exercise-file">Attachment (Optional)</label>
+                                    <input type="file" id="exercise-file">
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="cancel-btn">Cancel</button>
+                                    <button type="submit" class="save-btn">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes Content -->
+            <div class="content-section" id="notes-content">
+                <div class="section-header">
+                    <h1>Notes</h1>
+                    <button class="add-btn" id="add-note-btn">
+                        <i class="fas fa-plus"></i> Add Note
+                    </button>
+                </div>
+                
+                <div class="filter-row">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search notes...">
+                    </div>
+                    <div class="filter-select">
+                        <select id="notes-class-filter">
+                            <option value="">All Classes</option>
+                            <option value="CS101">CS101</option>
+                            <option value="CS102">CS102</option>
