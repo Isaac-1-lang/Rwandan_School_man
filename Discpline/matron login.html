@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matron & Patron Login</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f4f7fc, #e0e7ff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .school-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: linear-gradient(45deg, #3400ff, #fff);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .school-header h1 {
+            color: white;
+            font-size: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .school-header h1:hover {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 700px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.7s ease-out;
+        }
+
+        .login-container .title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            color: #3400ff;
+            margin-bottom: 30px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-size: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #3400ff;
+            box-shadow: 0 0 8px rgba(52, 0, 255, 0.2);
+            outline: none;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .options .rem {
+            margin-left: 5px;
+            color: #666;
+        }
+
+        .options .forgot {
+            color: #3400ff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .options .forgot:hover {
+            text-decoration: underline;
+            color: #5721fb;
+        }
+
+        .signin-btn {
+            padding: 12px;
+            background: linear-gradient(135deg, #3400ff, #5721fb);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .signin-btn:hover {
+            background: linear-gradient(135deg, #5721fb, #3400ff);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 0, 255, 0.3);
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            animation: popupIn 0.3s ease-out;
+            z-index: 1000;
+        }
+
+        .popup button {
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: #3400ff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .popup button:hover {
+            background: #5721fb;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes popupIn {
+            from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .school-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .login-container {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .school-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="school-header">
+        <h1>RCA</h1>
+    </header>
+
+    <main class="login-container">
+        <div class="title">Matron & Patron Sign In</div>
+        <form class="login-form" id="loginForm">
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <div class="options">
+                <div>
+                    <input type="checkbox" id="remember">
+                    <label for="remember" class="rem">Remember me</label>
+                </div>
+                <a href="mailto:support@example.com" class="forgot">Forgot password?</a>
+            </div>
+            <button type="submit" class="signin-btn">Sign In</button>
+        </form>
+    </main>
+
+    <div class="popup" id="popup">
+        <span id="popup-message"></span>
+        <button onclick="hidePopup()">Close</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script>
+        function showPopup(message) {
+            const popup = document.getElementById('popup');
+            document.getElementById('popup-message').textContent = message;
+            popup.style.display = 'block';
+        }
+
+        function hidePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (email && password) {
+                showPopup('Login successful! Redirecting to Discipline Management...');
+                setTimeout(() => {
+                    window.location.href = 's6.html';
+                }, 1500);
+            } else {
+                showPopup('Please enter both email and password');
+            }
+        });
+    </script>
+</body>
+</html>

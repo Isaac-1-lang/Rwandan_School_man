@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Report Card</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, rgba(244, 247, 252, 0.8), rgba(224, 231, 255, 0.8)), 
+                        url("https://images.unsplash.com/photo-1585435557343-3b0929e91f93?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #3400ff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 span {
+            color: #5721fb;
+        }
+
+        .report-form {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .report-form select, .report-form button {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .report-form button {
+            background: #3400ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .report-form button:hover {
+            background: #5721fb;
+        }
+
+        #reportOutput {
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        #reportOutput h2 {
+            color: #3400ff;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .edit-form {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .print-button {
+            background: #28a745;
+        }
+
+        .print-button:hover {
+            background: #218838;
+        }
+
+        .edit-button {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .edit-button:hover {
+            background: #e0a800;
+        }
+
+        .save-button {
+            background: #28a745;
+        }
+
+        .save-button:hover {
+            background: #218838;
+        }
+
+        .cancel-button {
+            background: #dc3545;
+        }
+
+        .cancel-button:hover {
+            background: #c82333;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+            
+            .report-form, .edit-form, .button-group {
+                display: none;
+            }
+            
+            #reportOutput {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generate <span>Report Card</span></h1>
+        <div class="report-form">
+            <select id="studentSelect">
+                <option value="">Select Student</option>
+            </select>
+            <button onclick="generateReport()">Generate Report</button>
+            <button onclick="showEditForm()" class="edit-button">Edit Student</button>
+        </div>
+        <div id="editFormContainer" style="display: none;"></div>
+        <div id="reportOutput"></div>
+    </div>
+
+    <script>
+        // Sample courses
+        const courses = [
+            "Mathematics", "Science", "English", "History", 
+            "Geography", "Computer Science", "Art", "Music", "Physical Education"
+        ];
+
+        // Initialize student data if not exists
+        if (!localStorage.getItem("studentData")) {
+            const sampleStudents = [
+                {
+                    name: "John Doe",
+                    lastCheckup: "2025-02-15",
+                    healthScore: 85,
+                    courses: {
+                        "Mathematics": 92,
+                        "Science": 88,
+                        "English": 95,
+                        "History": 78,
+                        "Geography": 82,
+                        "Computer Science": 96,
+                        "Art": 75,
+                        "Music": 89,
+                        "Physical Education": 93
+                    }
+                },
+                {
+                    name: "Jane Smith",
+                    lastCheckup: "2025-02-10",
+                    healthScore: 90,
+                    courses: {
+                        "Mathematics": 88,
+                        "Science": 92,
+                        "English": 90,
+                        "History": 85,
+                        "Geography": 79,
+                        "Computer Science": 89,
+                        "Art": 95,
+                        "Music": 96,
+                        "Physical Education": 87
+                    }
+                }
+            ];
+            localStorage.setItem("studentData", JSON.stringify(sampleStudents));
+        }
+
+        // Retrieve student data from localStorage
+        const students = JSON.parse(localStorage.getItem("studentData")) || [];
+
+        // Populate student dropdown
+        function populateStudents() {
+            const select = document.getElementById("studentSelect");
+            // Clear existing options except the first one
+            select.innerHTML = '<option value="">Select Student</option>';
+            
+            students.forEach(student => {
+                const option = document.createElement("option");
+                option.value = student.name;
+                option.textContent = student.name;
+                select.appendChild(option);
+            });
+        }
+
+        // Calculate average mark
+        function calculateAverage(marks) {
+            const values = Object.values(marks);
+            return values.reduce((a, b) => a + b, 0) / values.length;
+        }
+
+        // Generate report card
+        function generateReport() {
+            const selectedStudent = document.getElementById("studentSelect").value;
+            const output = document.getElementById("reportOutput");
+            if (!selectedStudent) {
+                output.innerHTML = "<p>Please select a student!</p>";
+                return;
+            }
+
+            const student = students.find(s => s.name === selectedStudent);
+            let tableRows = '';
+            let totalMarks = 0;
+            
+            // Generate table rows for each course
+            for (const [course, mark] of Object.entries(student.courses)) {
+                totalMarks += mark;
+                tableRows += `
+                    <tr>
+                        <td>${course}</td>
+                        <td>${mark}</td>
+                        <td>${getGrade(mark)}</td>
+                    </tr>
+                `;
+            }
+            
+            const averageMark = (totalMarks / Object.keys(student.courses).length).toFixed(2);
+            
+            output.innerHTML = `
+                <h2>Academic Report Card</h2>
+                <p><strong>Student Name:</strong> ${student.name}</p>
+                <p><strong>Health Score:</strong> ${student.healthScore}/100</p>
+                <p><strong>Last Checkup:</strong> ${new Date(student.lastCheckup).toLocaleDateString("en-US")}</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Mark</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRows}
+                        <tr>
+                            <td><strong>Average</strong></td>
+                            <td><strong>${averageMark}</strong></td>
+                            <td><strong>${getGrade(averageMark)}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <p><strong>Teacher's Note:</strong> ${getTeacherNote(averageMark)}</p>
+                
+                <div class="button-group">
+                    <button onclick="window.print()" class="print-button">Print Report</button>
+                </div>
+            `;
+        }
+
+        // Get grade based on mark
+        function getGrade(mark) {
+            if (mark >= 90) return "A+";
+            if (mark >= 80) return "A";
+            if (mark >= 70) return "B";
+            if (mark >= 60) return "C";
+            if (mark >= 50) return "D";
+            return "F";
+        }
+
+        // Get teacher's note based on average mark
+        function getTeacherNote(average) {
+            if (average >= 90) return "Outstanding performance! Keep up the excellent work.";
+            if (average >= 80) return "Very good performance. Continue to work hard.";
+            if (average >= 70) return "Good effort. There's room for improvement in some subjects.";
+            if (average >= 60) return "Satisfactory performance. More focus needed on weaker subjects.";
+            if (average >= 50) return "Needs improvement. Consider additional help in problem areas.";
+            return "Significant improvement needed. Please schedule a parent-teacher meeting.";
+        }
+
+        // Show edit form
+        function showEditForm() {
+            const selectedStudent = document.getElementById("studentSelect").value;
+            const editFormContainer = document.getElementById("editFormContainer");
+            
+            if (!selectedStudent) {
+                alert("Please select a student to edit!");
+                return;
+            }
+            
+            const student = students.find(s => s.name === selectedStudent);
+            let courseInputs = '';
+            
+            courses.forEach(course => {
+                const mark = student.courses[course] || 0;
+                courseInputs += `
+                    <div class="form-group">
+                        <label for="${course.replace(/\s+/g, '')}">${course}:</label>
+                        <input type="number" id="${course.replace(/\s+/g, '')}" value="${mark}" min="0" max="100">
+                    </div>
+                `;
+            });
+            
+            editFormContainer.innerHTML = `
+                <div class="edit-form">
+                    <h3>Edit Student Information</h3>
+                    <div class="form-group">
+                        <label for="studentName">Student Name:</label>
+                        <input type="text" id="studentName" value="${student.name}">
+                    </div>
+                    <div class="form-group">
+                        <label for="healthScore">Health Score:</label>
+                        <input type="number" id="healthScore" value="${student.healthScore}" min="0" max="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastCheckup">Last Checkup:</label>
+                        <input type="date" id="lastCheckup" value="${student.lastCheckup}">
+                    </div>
+                    
+                    <h4>Course Marks</h4>
+                    ${courseInputs}
+                    
+                    <div class="button-group">
+                        <button onclick="saveStudent()" class="save-button">Save Changes</button>
+                        <button onclick="cancelEdit()" class="cancel-button">Cancel</button>
+                    </div>
+                </div>
+            `;
+            
+            editFormContainer.style.display = "block";
+        }
+
+        // Save edited student data
+        function saveStudent() {
+            const selectedStudent = document.getElementById("studentSelect").value;
+            const studentIndex = students.findIndex(s => s.name === selectedStudent);
+            
+            if (studentIndex === -1) {
+                alert("Student not found!");
+                return;
+            }
+            
+            const newName = document.getElementById("studentName").value;
+            const healthScore = parseInt(document.getElementById("healthScore").value);
+            const lastCheckup = document.getElementById("lastCheckup").value;
+            
+            // Update courses
+            const updatedCourses = {};
+            courses.forEach(course => {
+                const inputId = course.replace(/\s+/g, '');
+                updatedCourses[course] = parseInt(document.getElementById(inputId).value) || 0;
+            });
+            
+            // Update student data
+            students[studentIndex] = {
+                name: newName,
+                healthScore: healthScore,
+                lastCheckup: lastCheckup,
+                courses: updatedCourses
+            };
+            
+            // Save to localStorage
+            localStorage.setItem("studentData", JSON.stringify(students));
+            
+            // Refresh student dropdown
+            populateStudents();
+            
+            // Hide edit form
+            cancelEdit();
+            
+            // Update selected student
+            document.getElementById("studentSelect").value = newName;
+            
+            // Regenerate report
+            generateReport();
+        }
+
+        // Cancel edit
+        function cancelEdit() {
+            document.getElementById("editFormContainer").style.display = "none";
+        }
+
+        // Initial setup
+        populateStudents();
+    </script>
+</body>
+</html>

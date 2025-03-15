@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teachers and Subjects</title>
+  <link rel="stylesheet" href="teacher.css">
+</head>
+<body>
+  <header>
+    <h1> Teachers</h1>
+  </header>
+  <main class="teachers-container">
+    <div class="teacher-card" onclick="showSubjects('teacher1')">
+      <img src="teacher1.jpg" alt="Teacher 1" class="teacher-photo">
+      <h2>Mr. Edouard Karekezi</h2>
+    </div>
+    <div class="teacher-card" onclick="showSubjects('teacher2')">
+      <img src="teacher2.jpg" alt="Teacher 2" class="teacher-photo">
+      <h2>Ms. Sarah Mukeshimana</h2>
+    </div>
+    <div class="teacher-card" onclick="showSubjects('teacher3')">
+      <img src="teacher3.jpg" alt="Teacher 3" class="teacher-photo">
+      <h2>Mr. Joseph Harerimana</h2>
+    </div>
+    <div class="teacher-card" onclick="showSubjects('teacher4')">
+        <img src="teacher4.jpg" alt="Teacher 4" class="teacher-photo">
+        <h2>Mr. Gerard Munyaneza</h2>
+        </div>
+        <div class="teacher-card" onclick="showSubjects('teacher5')">
+            <img src="teacher5.jpg" alt="Teacher 5" class="teacher-photo">
+            <h2>Mr. Remy Ndikuyeze</h2>
+            </div>
+            <div class="teacher-card" onclick="showSubjects('teacher6')">
+                <img src="teacher6.jpg" alt="Teacher 6" class="teacher-photo">
+                <h2>Ms. Rosette Umukundwa</h2>
+                </div>
+                <div class="teacher-card" onclick="showSubjects('teacher7')">
+                    <img src="teacher7.jpg" alt="Teacher 7" class="teacher-photo">
+                    <h2>Ms. Mutimukeye Berardine</h2>
+                    </div>
+                    <div class="teacher-card" onclick="showSubjects('teacher8')">
+                        <img src="teacher8.jpg" alt="Teacher 8" class="teacher-photo">
+                        <h2>Ms. Irasubiza Domitilla</h2>
+                        </div>
+
+  </main>
+  <div id="subjects-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2 id="teacher-name"></h2>
+      <ul id="subjects-list"></ul>
+    </div>
+  </div>
+  <script src="teacher.js"></script>
+</body>
+</html>

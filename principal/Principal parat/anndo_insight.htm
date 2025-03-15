@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="anndo_insight.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sofia&display=swap" rel="stylesheet">
+</head>
+<body>
+    <input type="checkbox" id="check">
+    <label for="check">
+        <img src="./files/Menu.png" id="btn" alt="">
+        <img src="./files/Cancel.png" id="cancel" alt="">
+    </label>
+    <div class="side-menu">
+        <div class="title">
+            <h1>School</h1>
+        </div>
+        <ul>
+            <li><a href="#"><img src="./files/Reading.png" alt="">&nbsp;Students</a></li>
+            <li><a href="./teacher/PROJECT/teacher.html"><img src="./files/Teacher.png" alt="">&nbsp;Teachers</a></li>
+            <li><a href="choose.html"><img src="./files/Medical Doctor.png" alt="">&nbsp;Doctors</a></li>
+            <li><a href="./teacher/PROJECT/discipline.html"><img src="./files/Soccer Yellow Card.png" alt="">&nbsp;Disciplinary</a></li>
+            <li><a href="index.html"><img src="./files/Home.png" alt="">&nbsp;Home</a></li>
+        </ul>
+    </div>
+    <div class="report">
+        <div class="outer">
+            <div class="inner">
+                <div id="number">
+                </div>
+                <p class="details">Visits to office this week</p>
+            </div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+            <defs>
+               <linearGradient id="GradientColor">
+                  <stop offset="0%" stop-color="#0059b3" />
+                  <stop offset="100%" stop-color="#0088c2" />
+               </linearGradient>
+            </defs>
+            <circle cx="80" cy="80" r="70" stroke-linecap="round" 
+            />
+    </svg>
+    </div>
+
+
+    <script>
+        let number = document.getElementById("number")
+        let counter = 0;
+        setInterval(() => {
+            if (counter==60){
+                clearInterval();
+            }else{
+                counter +=1;
+                number.innerHTML = counter;
+            }
+        
+        }, 100 )
+    </script>
+</body>
+</html>

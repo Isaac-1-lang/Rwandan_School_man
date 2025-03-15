@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discipline Marks</title>
+    <link rel="stylesheet" href="discipline.css">
+</head>
+<body>
+    <input type="checkbox" id="check">
+    <label for="check">
+        <img src="./files" id="btn" alt="">
+        <img src="./files/Cancel.png" id="cancel" alt="">
+    </label>
+    <div class="side-menu">
+        <div class="title">
+            <h1>School</h1>
+        </div>
+        <ul>
+            <li><a href="#"><img src="./files/Reading.png" alt="">&nbsp;Students</a></li>
+            <li><a href="./teacher/PROJECT/teacher.html"><img src="./files/Teacher.png" alt="">&nbsp;Teachers</a></li>
+            <li><a href="choose.html"><img src="./files/Medical Doctor.png" alt="">&nbsp;Doctors</a></li>
+            <li><a href="./teacher/PROJECT/discipline.html"><img src="./files/Soccer Yellow Card.png" alt="">&nbsp;Disciplinary</a></li>
+            <li><a href="index.html"><img src="./files/Home.png" alt="">&nbsp;Home</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="header">
+            <div class="nav">
+                <div class="user">
+                    <a href=""><img src="./files/Notification.png" alt=""></a>
+                    <a href=""><img src="./files/user.png" alt=""></a>
+                </div>
+            </div>
+        </div>
+    <header>
+        <h1>Discipline Marks</h1>
+    </header>
+
+    <div class="container">
+        <div class="search-bar">
+            <div class="class-dropdown">
+                <label for="classSelect">Select Class:</label>
+                <select id="classSelect" onchange="filterClass()">
+                  <option value="all">All Classes</option>
+                  <option value="Class 1">S1</option>
+                  <option value="Class 2">S2</option>
+                  <option value="Class 3">S3</option>
+                  <option value="Class 3">S4</option>
+                  <option value="Class 3">S5</option>
+                  <option value="Class 3">S6</option>
+                  
+                </select>
+              </div>
+    
+            <input type="text" id="searchInput" placeholder="Search for a student...">
+            <button onclick="searchStudent()">Search</button>
+        </div>
+        
+        <table id="studentsTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Class</th>
+                    <th>Discipline Marks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Ishimwe Prince</td>
+                    <td>S1</td>
+                    <td>85</td>
+                </tr>
+                <tr>
+                    <td>Umukundwa Ariella</td>
+                    <td>S2</td>
+                    <td>90</td>
+                </tr>
+                <tr>
+                    <td>Sangwa Sabrina</td>
+                    <td>S3</td>
+                    <td>78</td>
+                </tr>
+                <tr>
+                    <td>Mihigo Tresor</td>
+                    <td>S4</td>
+                    <td>92</td>
+                </tr>
+                <tr>
+                    <td>Umutoniwase Joanah</td>
+                    <td>S5</td>
+                    <td>88</td>
+                </tr>
+                <tr>
+                    <td>Byishimo David</td>
+                    <td>S6</td>
+                    <td>50</td>
+
+            </tbody>
+        </table>
+
+        <div class="no-results" id="noResults" style="display: none;">No student found.</div>
+    </div>
+
+    <script src="discipline.js"></script>
+</body>
+</html>

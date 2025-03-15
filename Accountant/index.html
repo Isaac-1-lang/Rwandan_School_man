@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f4f7fc, #e0e7ff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .school-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: linear-gradient(45deg, #3400ff, #fff);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .school-header img {
+            width: 100px;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .school-header img:hover {
+            transform: scale(1.1);
+        }
+
+        .school-header h1 {
+            color: white;
+            font-size: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .school-header h1:hover {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Container Styles */
+        .login-container {
+            width: 100%;
+            max-width: 700px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.7s ease-out;
+        }
+
+        .login-container .title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            color: #3400ff;
+            margin-bottom: 30px;
+        }
+
+        /* Form Styles */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #3400ff;
+            box-shadow: 0 0 8px rgba(52, 0, 255, 0.2);
+            outline: none;
+        }
+
+        .input-group img {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            opacity: 0.7;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: -10px;
+        }
+
+        .forgot-password a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #3400ff;
+            text-decoration: underline;
+        }
+
+        /* Button Styles */
+        .signin-btn {
+            padding: 12px;
+            background: linear-gradient(135deg, #3400ff, #5721fb);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .signin-btn:hover {
+            background: linear-gradient(135deg, #5721fb, #3400ff);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 0, 255, 0.3);
+        }
+
+        /* Popup Styles */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            animation: popupIn 0.3s ease-out;
+            z-index: 1000;
+        }
+
+        .popup button {
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: #3400ff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .popup button:hover {
+            background: #5721fb;
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes popupIn {
+            from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .school-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .login-container {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .school-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .school-header img {
+                width: 80px;
+            }
+
+            .title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="login-container">
+        <div class="title">Sign In</div>
+        <form class="login-form" onsubmit="handleSubmit(event)">
+            <div class="input-group">
+                <img src="./account_circle_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" alt="User Icon">
+                <input type="text" placeholder="Username" required name="username">
+            </div>
+            <div class="input-group">
+                <img src="./mail_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" alt="Email Icon">
+                <input type="email" placeholder="Email" required name="email">
+            </div>
+            <div class="input-group">
+                <img src="./lock_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" alt="Password Icon">
+                <input type="password" placeholder="Password" required name="password">
+                <div class="forgot-password">
+                    <a href="mailto:isaprecieux112@gmail.com">Forgot password?</a>
+                </div>
+            </div>
+            <div class="input-group">
+                <img src="./call_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" alt="Phone Icon">
+                <input type="tel" placeholder="Phone Number" required name="phone_number">
+            </div>
+            <button type="submit" class="signin-btn">Sign In</button>
+        </form>
+    </main>
+
+    <div class="popup" id="popup">
+        <span id="popup-message"></span>
+        <button onclick="hidePopup()">Close</button>
+    </div>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            // Simulate login success
+            showPopup("Login successful! Redirecting...");
+            setTimeout(() => {
+                window.location.href = "./s6.html";
+            }, 1500);
+        }
+
+        function showPopup(message) {
+            const popup = document.getElementById('popup');
+            document.getElementById('popup-message').textContent = message;
+            popup.style.display = 'block';
+        }
+
+        function hidePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
